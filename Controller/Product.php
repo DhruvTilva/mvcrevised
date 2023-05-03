@@ -49,26 +49,7 @@ class Controller_Product extends Controller_Core_Action
 			$this->render();
 	}
 
-	// public function updateAction()
-	// {
-	// 		$request = $this->getRequest();
-	// 		$postData = $request->getPost('Product');
-	// 		$id = $request->getParams('id');
 
-	// 		$query = "UPDATE `product` SET 
-	// 						`name`='$postData[name]',
-	// 						`cost`='$postData[cost]',
-	// 						`price`='$postData[price]',
-	// 						`sku`='$postData[sku]',
-	// 						`status`='$postData[status]',
-	// 						`description`='$postData[description]',
-	// 						`color`='$postData[color]',
-	// 						`material`='$postData[material]' 
-	// 						WHERE `product_id` = {$id}";
-	// 		$adapter = $this->getAdapter();
-	// 		$adapter->update($query);
-	// 		header("Location:index.php?c=Product&a=grid");
-	// }
 
 	public function deleteAction()
 	{
