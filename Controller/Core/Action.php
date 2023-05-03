@@ -10,6 +10,11 @@ class Controller_Core_Action
 	protected $layout = Null;
 	protected $url = Null;
 
+
+public function render()
+   {
+      $this->getView()->render();
+   }
 	protected function setUrl(Model_Core_Url $url)
 	{
 		$this->url = $url;

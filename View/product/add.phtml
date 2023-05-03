@@ -8,10 +8,12 @@
 <body>
 
 	
-			<h1>Product With Adapter</h1>
+			<h1>Product  Add</h1>
+
+
 
 	<form action="index.php?c=Product&a=insert" method="POST">
-		<table border="1px">
+		<table class="table-primary">
 			<tr>
 				<td>PRODUCT NAME</td>
 				<td> <input type="text" name="Product[name]"> </td>
@@ -28,7 +30,7 @@
 				<td>SKU</td>
 				<td> <input type="text" name="Product[sku]"> </td>
 			</tr>
-			<tr>
+			<tr>		
 				<td>STATUS</td>
 				<td>
 					<select name="Product[status]">
@@ -54,9 +56,10 @@
 			</tr>
 			<tr>
 				<th> <button> <a href="index.php?c=Product&a=grid">CANCEL</a> </button></th>
-				<th> <button type="submit"> SAVE </button></th>
+				<th> <button type="button" class="btn btn-dark" inputtype="submit">Save</button></th>
+
 			</tr>
-		</table>
+	</table>
 	</form>
 
 </body>
