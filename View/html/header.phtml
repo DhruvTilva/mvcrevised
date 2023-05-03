@@ -1,0 +1,40 @@
+<?php
+
+$url=new Model_Core_Url();
+
+?>
+
+
+<style>
+        * {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+       .header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 3px;
+        background-color: lightgrey;
+
+       }
+       
+       .header a{
+        color: black;
+        padding: 30px;
+        justify-content: center;
+        font-size: large;
+       }
+       
+       
+    </style>
+
+
+
+<div class="header">
+        <h2>MVC Structure</h2>
+	<a href="<?php echo $url->getUrl('grid','product',null,true)?>">Product</a>
+	<a href="<?php echo $url->getUrl('grid','category',null,true)?>">Category</a>
+	<a href="<?php echo $url->getUrl('grid','customer',null,true)?>">Customer</a>
+	<a href="<?php echo $url->getUrl('grid','vendor',null,true)?>">Vendor</a>
+	<a href="<?php echo $url->getUrl('grid','salesman',null,true)?>">Salesman</a>
+
+</div>

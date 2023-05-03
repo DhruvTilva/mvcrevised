@@ -1,52 +1,54 @@
+<?php $products = $this->products;
+?>
 
 
-
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Product </title>
-</head>
+			 <?php require_once "View/html/head.phtml"; ?>
+			 <?php require_once "View/html/header.phtml"; ?>
 <body>
 			
-			<h1>Product With Adapter</h1>
-			 <button> <a href="index.php?c=Product&a=add">ADD</a> </button>
+			 <button type="button" class="btn btn-dark"><a href="index.php?c=Product&a=add">ADD</a></button>
 
-	<table border="3px" width="70%">
+	
+		<table class="table table-light">
+ 		 <thead>
+   		 <tr>
+		 <th scope="col">PRODUCT ID</th>
+		 <th scope="col">PRODUCT NAME</th>
+		 <th scope="col">COST</th>
+		 <th scope="col">PRICE</th>
+		 <th scope="col">SKU</th>
+		 <th scope="col">STATUS</th>
+		 <th scope="col">DISCRIPTION</th>
+		 <th scope="col">COLOR</th>
+		 <th scope="col">MATERIAL</th>
+		 <th scope="col">CREATED AT</th>
+		 <th scope="col">UPDATED AT</th>
+		 <th scope="col">EDIT</th>
+		 <th scope="col">DELETE</th>
+		  </tr>
+        </thead>
+
+	<?php foreach ($products as $product): ?>
 		<tr>
-			<th>PRODUCT ID</th>
-			<th>PRODUCT NAME</th>
-			<th>COST</th>
-			<th>PRICE</th>
-			<th>SKU</th>
-			<th>STATUS</th>
-			<th>DISCRIPTION</th>
-			<th>COLOR</th>
-			<th>MATERIAL</th>
-			<th>CREATED AT</th>
-			<th>UPDATED AT</th>
-			<th>EDIT</th>
-			<th>DELETE</th>
-		</tr>
-	<?php foreach ($products as $value): ?>
-		<tr>
-			<td><?php echo $value['product_id']; ?></td>
-			<td><?php echo $value['name']; ?></td>
-			<td><?php echo $value['cost']; ?></td>
-			<td><?php echo $value['price']; ?></td>
-			<td><?php echo $value['sku']; ?></td>
-			<td><?php echo $value['status']; ?></td>
-			<td><?php echo $value['description']; ?></td>
-			<td><?php echo $value['color']; ?></td>
-			<td><?php echo $value['material']; ?></td>
-			<td><?php echo $value['inserted_at']; ?></td>
-			<td><?php echo $value['updated_at']; ?></td>
-			<td> <a href="index.php?c=Product&a=edit&id=<?php echo $value['product_id']; ?>">EDIT</a> </td>
-			<td> <a href="index.php?c=Product&a=delete&id=<?php echo $value['product_id']; ?>">DELETE</a> </td>
+			<td><?php echo $product->product_id; ?></td>
+			<td><?php echo $product->name; ?></td>
+			<td><?php echo $product->cost; ?></td>
+			<td><?php echo $product->price; ?></td>
+			<td><?php echo $product->sku; ?></td>
+			<td><?php echo $product->status; ?></td>
+			<td><?php echo $product->description; ?></td>
+			<td><?php echo $product->color; ?></td>
+			<td><?php echo $product->material; ?></td>
+			<td><?php echo $product->inserted_at; ?></td>
+			<td><?php echo $product->updated_at; ?></td>
+			<td> <a href="index.php?c=Product&a=edit&id=<?php echo $product->product_id; ?>">EDIT</a> </td>
+			<td> <a href="index.php?c=Product&a=delete&id=<?php echo $product->product_id; ?>">DELETE</a> </td>
 		</tr>
 	<?php endforeach; ?>
 	</table>
+
+			 <?php require_once "View/html/footer.phtml"; ?>
+
 
 
 </body>
