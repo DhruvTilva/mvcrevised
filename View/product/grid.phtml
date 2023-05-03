@@ -1,12 +1,11 @@
-<?php $products = $this->products;
-?>
+<?php $products = $this->products;?>
 
 
 			 <?php require_once "View/html/head.phtml"; ?>
 			 <?php require_once "View/html/header.phtml"; ?>
 <body>
 			
-			 <button type="button" class="btn btn-dark"><a href="index.php?c=Product&a=add">ADD</a></button>
+			 <button type="button" class="btn btn-dark"><a href="index.php?c=product&a=add">ADD</a></button>
 
 	
 		<table class="table table-light">
@@ -41,8 +40,8 @@
 			<td><?php echo $product->material; ?></td>
 			<td><?php echo $product->inserted_at; ?></td>
 			<td><?php echo $product->updated_at; ?></td>
-			<td> <a href="index.php?c=Product&a=edit&id=<?php echo $product->product_id; ?>">EDIT</a> </td>
-			<td> <a href="index.php?c=Product&a=delete&id=<?php echo $product->product_id; ?>">DELETE</a> </td>
+			<td> <a href="index.php?c=product&a=edit&id=<?php echo $product->product_id; ?>">EDIT</a> </td>
+			<td> <a href="index.php?c=product&a=delete&id=<?php echo $product->product_id; ?>">DELETE</a> </td>
 		</tr>
 	<?php endforeach; ?>
 	</table>

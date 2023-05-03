@@ -98,6 +98,13 @@ public function render()
 		return $adapter;
 	}
 
+	public function redirect($action=null,$controller=null,$params=[],$reset=false)
+	{
+		$url= $this->getUrl()->getUrl($action,$controller,$params,$reset);
+		header("Location:{$url}");
+		exit();
+	}
+
 }
 
 	

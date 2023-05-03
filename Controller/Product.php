@@ -26,19 +26,7 @@ class Controller_Product extends Controller_Core_Action
 		$this->getView()->setTemplate('product/add.phtml');
 		$this->render();
 	}
-	
 
-	// public function insertAction()
-	// {
-	// 		$request = $this->getRequest();
-	// 		$postData = $request->getPost('Product');
-
-	// 		$query = "INSERT INTO `product`(`name`, `cost`, `price`, `sku`, `status`, `description`, `color`, `material`) VALUES ('$postData[name]','$postData[cost]','$postData[price]','$postData[sku]','$postData[status]','$postData[description]','$postData[color]','$postData[material]')";
-	// 		$adapter = $this->getAdapter();
-	// 		$adapter->insert($query);
-	// 		// print_r($t);
-	// 		header("Location:index.php?c=Product&a=grid");
-	// }
 
 	public function editAction()
 	{
@@ -49,26 +37,7 @@ class Controller_Product extends Controller_Core_Action
 			$this->render();
 	}
 
-	// public function updateAction()
-	// {
-	// 		$request = $this->getRequest();
-	// 		$postData = $request->getPost('Product');
-	// 		$id = $request->getParams('id');
-
-	// 		$query = "UPDATE `product` SET 
-	// 						`name`='$postData[name]',
-	// 						`cost`='$postData[cost]',
-	// 						`price`='$postData[price]',
-	// 						`sku`='$postData[sku]',
-	// 						`status`='$postData[status]',
-	// 						`description`='$postData[description]',
-	// 						`color`='$postData[color]',
-	// 						`material`='$postData[material]' 
-	// 						WHERE `product_id` = {$id}";
-	// 		$adapter = $this->getAdapter();
-	// 		$adapter->update($query);
-	// 		header("Location:index.php?c=Product&a=grid");
-	// }
+	
 
 	public function deleteAction()
 	{
@@ -88,35 +57,40 @@ class Controller_Product extends Controller_Core_Action
 				throw new Exception("Error Request");
 			}
 			$data = $request->getPost('product');
-			// print_r($data); die;
+			// print_r($data); die();
+
 			if (!$data) {
 				throw new Exception("no data posted");
 			}
 			$id=$request->getParams('id');
+			// print_r($id); die();
 			if ($id) {
-				$product=Ccc::getModel('Product');
+				// echo 111; die();
+				$product=Ccc::getModel('Product_Row')->load($id);
 				date_default_timezone_set('Asia/Kolkata');
 				$product->updated_at=date('Y-m-d H:i:s');
-				// echo"<pre>";
-				// print_r($product); die();
+				
 			}
 			else{
-				$product= Ccc::getModel('Product');
-				date_default_timezone_set('Asia/Kolkata');
-				$product->created_at = date("Y-m-d h:i:s");
+				// echo 222; die();
 
+				$product= Ccc::getModel('Product_Row');
+				date_default_timezone_set('Asia/Kolkata');
+				$product->inserted_at = date("Y-m-d h:i:s");
+				// print_r($product); die();
 			}
-			// echo"<pre>";
 			$product->setData($data);
+			// echo "<pre>";
+			// print_r($product);
+			// die;
 			$product->save();
+			// print_r($result); die();
 			
-			$this->redirect('grid');
 		}
-		catch(Exception $e){
-			
-			// $this->redirect('grid');
-			echo "catch found"
+		catch(Exception $e){	
+				echo "catch found";
 		}
+		$this->redirect('grid', 'product', null, true);
 	}
 
 }
