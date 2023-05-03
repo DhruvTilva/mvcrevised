@@ -1,0 +1,64 @@
+<?php
+$url=Ccc::getModel('Core_Url');
+
+$customers = $this->customers;
+
+// print_r($customers); die;
+
+
+?>
+    <?php require_once "View/html/head.phtml"; ?>
+    <?php require_once "View/html/header.phtml"; ?>
+
+   <body>
+            
+             <button type="button" class="btn btn-dark"><a href="index.php?c=customer&a=add">ADD</a></button>
+            
+
+        <table class="table table-light">
+         <thead>
+         <tr>
+         <th scope="col">Customer_id</th>
+         <th scope="col">First_name</th>
+         <th scope="col">Last_name</th>
+         <th scope="col">Email</th>
+         <th scope="col">Mobile</th>
+         <th scope="col">Status</th>
+         <th scope="col">inserted_at</th>
+         <th scope="col">updated_at</th>
+         <th scope="col">Edit</th>
+         <th scope="col">Delete AT</th>
+         
+          </tr>
+        </thead>
+               <?php
+                //feching data to form from database
+                foreach($customers as $row){
+
+                ?>
+
+                
+                <tr>
+                    <td><?php echo $row->customer_id; ?></td>
+                    <td><?php echo $row->firstname; ?></td>
+                    <td><?php echo $row->lastname; ?></td>
+                    <td><?php echo $row->email; ?></td>
+                    <td><?php echo $row->gender; ?></td>
+                    <td><?php echo $row->mobile; ?></td>
+                    <td><?php echo $row->status; ?></td>
+                    <td><?php echo $row->inserted_at; ?></td>
+                    <td><?php echo $row->updated_at; ?></td>
+                    <td><a href="index.php?c=customer&a=edit&id=<?php echo $row->customer_id; ?>">edit</a></td>
+                    <td><a href="index.php?c=customer&a=delete&id=<?php echo $row->customer_id; ?>">delete</a></td>
+                </tr>
+                <?php
+                }
+                ?>
+            </table>
+        <?php require_once "View/html/footer.phtml"; ?>
+
+
+
+</body>
+</html>
+       

@@ -122,7 +122,8 @@ class Model_Core_Table_Row
 		}
 
 		foreach ($result as &$row) {
-			$row = (new $this)->setData($row)->setTable($this->getTable());
+			$row = (new $this)->setData($row);
+			// ->setTable($this->getTable());
 		}
 		return $result;
 	}
@@ -184,7 +185,7 @@ class Model_Core_Table_Row
 			$result = $this->getTable()->update($this->data, $condition);
 			if($result){
 				$this->load($id);
-				return true;
+				return $this;
 			}
 			return false;		
 		}

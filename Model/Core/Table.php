@@ -74,6 +74,9 @@ class Model_Core_Table{
 
 		$sql = "INSERT INTO `{$this->getTableName()}` ({$keyString}) VALUES ({$valueString})";
 		return $this->getAdapter()->insert($sql);
+		// echo $sql; die();
+
+
 	}
 
 	public function update($data, $conditions)
@@ -91,16 +94,25 @@ class Model_Core_Table{
 		return $this->getAdapter()->update($sql);
 	}
 
-	public function delete($conditions)
+	// public function delete($conditions)
+	// {
+	// 	foreach ($conditions as $key => $value) {
+	// 		$conditionArray[] = " `$key` = '$value'";
+	// 	}
+
+	// 	$keyString = implode('AND',$conditionArray);
+
+	// 	$query = "DELETE FROM `{$this->getTableName()}` WHERE {$keyString}";
+	// 	return $this->getAdapter()->delete($query);
+	// }
+
+	public function delete($id)
 	{
-		foreach ($conditions as $key => $value) {
-			$conditionArray[] = " `$key` = '$value'";
-		}
-
-		$keyString = implode('AND',$conditionArray);
-
-		$query = "DELETE FROM `{$this->getTableName()}` WHERE {$keyString}";
-		return $this->getAdapter()->delete($query);
+		$tableName = $this->getTableName();
+		$primaryKey = $this->getPrimaryKey();
+		$sql = "DELETE FROM `{$tableName}` WHERE `{$primaryKey}`='{$id}'";
+		$adapter = $this->getAdapter();
+		return $adapter->delete($sql);
 	}
 	
 	public function load($value,$column=null)
