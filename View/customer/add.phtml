@@ -43,7 +43,7 @@
                     <td>Gender: </td>
                     <td>
                         <input type="radio" name="customer[gender]">Male <br>
-                        <input type="radio" name="gender" >Female <br>
+                        <input type="radio" name="customer[gender]" >Female <br>
 
                     </td>
                 </tr>
@@ -70,30 +70,62 @@
             <table class="table table-light">
 
                 <tr>
-                    <th colspan="2"><h3>Address</h3></th>
+                    <th colspan="2"><h3>Shipping Address</h3></th>
                 </tr>
                 <tr>
                     <td>
-                        Address:
+                         Shipping Address:
                     </td>
-                    <td><textarea name="address[address]"></textarea></td>
+                    <td><textarea name="shippingAddress[address]"></textarea></td>
 
                 </tr>
                 <tr>
                     <td>city:</td>
-                    <td><input type="text" name="address[city]" ></td>
+                    <td><input type="text" name="shippingAddress[city]" ></td>
                 </tr>
                 <tr>
                     <td>state:</td>
-                    <td><input type="text" name="address[state]" ></td>
+                    <td><input type="text" name="shippingAddress[state]" ></td>
                 </tr>
                 <tr>
                     <td>country:</td>
-                    <td><input type="text" name="address[country]"></td>
+                    <td><input type="text" name="shippingAddress[country]"></td>
                 </tr>
                 <tr>
                     <td>zipcode:</td>
-                    <td><input type="text" name="address[zipcode]" ></td>
+                    <td><input type="text" name="shippingAddress[zipcode]" ></td>
+                </tr>
+
+
+            </table>
+
+            <table class="table table-light">
+
+                <tr>
+                    <th colspan="2"><h3>Billing Address</h3></th>
+                </tr>
+                <tr>
+                    <td>
+                         Billing Address:
+                    </td>
+                    <td><textarea name="billingAddress[address]"></textarea></td>
+
+                </tr>
+                <tr>
+                    <td>city:</td>
+                    <td><input type="text" name="billingAddress[city]" ></td>
+                </tr>
+                <tr>
+                    <td>state:</td>
+                    <td><input type="text" name="billingAddress[state]" ></td>
+                </tr>
+                <tr>
+                    <td>country:</td>
+                    <td><input type="text" name="billingAddress[country]"></td>
+                </tr>
+                <tr>
+                    <td>zipcode:</td>
+                    <td><input type="text" name="billingAddress[zipcode]" ></td>
                 </tr>
 
 

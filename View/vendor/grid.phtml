@@ -1,7 +1,7 @@
 <?php
 $url=Ccc::getModel('Core_Url');
 
-$customers = $this->customers;
+$vendors = $this->vendors;
 
 
 
@@ -10,16 +10,14 @@ $customers = $this->customers;
     <?php require_once "View/html/header.phtml"; ?>
 
    <body>
-       <h3> <p class="text-decoration-line-through">Manage Customer Content.</p></h3>
-
-            
-      <button type="button" class="btn btn-dark"><a href="index.php?c=customer&a=add">ADD</a></button>
+       <h3> <p class="text-decoration-line-through">Manage Vendor Content.</p></h3>
+      <button type="button" class="btn btn-dark"><a href="index.php?c=vendor&a=add">ADD</a></button>
             
 
         <table class="table table-light">
          <thead>
          <tr>
-         <th scope="col">Customer_id</th>
+         <th scope="col">Vendor_id</th>
          <th scope="col">First_name</th>
          <th scope="col">Last_name</th>
          <th scope="col">Email</th>
@@ -29,39 +27,33 @@ $customers = $this->customers;
          <th scope="col">inserted_at</th>
          <th scope="col">updated_at</th>
          <th scope="col">Edit</th>
-         <th scope="col">Delete AT</th>
+         <th scope="col">Delete</th>
          
           </tr>
         </thead>
                <?php
-               if (!$customers) {
-                   echo "data not found";
-                   
-               }
-               else{
                 //feching data to form from database
-                foreach($customers as $row){
+                foreach($vendors as $row){
 
                 ?>
 
                 
                 <tr>
-                    <td><?php echo $row->customer_id; ?></td>
+                    <td><?php echo $row->vendor_id; ?></td>
                     <td><?php echo $row->firstname; ?></td>
                     <td><?php echo $row->lastname; ?></td>
-                    <td><?php echo $row->email; ?></td>
+                    <td><?php echo $row->mail; ?></td>
                     <td><?php echo $row->gender; ?></td>
-                    <td><?php echo $row->mobile; ?></td>
+                    <td><?php echo $row->no; ?></td>
                     <td><?php echo $row->status; ?></td>
                     <td><?php echo $row->inserted_at; ?></td>
                     <td><?php echo $row->updated_at; ?></td>
-                    <td><a href="index.php?c=customer&a=edit&id=<?php echo $row->customer_id; ?>">edit</a></td>
-                    <td><a href="index.php?c=customer&a=delete&id=<?php echo $row->customer_id; ?>">delete</a></td>
+                    <td><a href="index.php?c=vendor&a=edit&id=<?php echo $row->vendor_id; ?>">edit</a></td>
+                    <td><a href="index.php?c=vendor&a=delete&id=<?php echo $row->vendor_id; ?>">delete</a></td>
                 </tr>
                 <?php
                 }
                 ?>
-            <?php }?>
             </table>
         <?php require_once "View/html/footer.phtml"; ?>
 
