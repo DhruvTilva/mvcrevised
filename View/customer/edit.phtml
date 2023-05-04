@@ -2,7 +2,8 @@
 
 $url = new Model_Core_Url();
 $customer = $this->customer;
-$customerAddress = $this->address;
+$billingAddress = $this->billingaddress;
+$shippingAddress = $this->shipppingaddress;
 
 
 
@@ -77,30 +78,62 @@ $customerAddress = $this->address;
             <table class="table table-light">
 
                 <tr>
-                    <th colspan="2"><h3>Address</h3></th>
+                    <th colspan="2"><h3>Shipping Address</h3></th>
                 </tr>
                 <tr>
                     <td>
                         Address:
                     </td>
-                    <td><textarea name="address[address]"><?php echo $customerAddress->address; ?></textarea></td>
+                    <td><textarea name="shippingAddress[address]"><?php echo $shippingAddress->address; ?></textarea></td>
 
                 </tr>
                 <tr>
                     <td>city:</td>
-                    <td><input type="text" name="address[city]" value="<?php echo $customerAddress->city; ?>"></td>
+                    <td><input type="text" name="shippingAddress[city]" value="<?php echo $shippingAddress->city; ?>"></td>
                 </tr>
                 <tr>
                     <td>state:</td>
-                    <td><input type="text" name="address[state]" value="<?php echo $customerAddress->state; ?>"></td>
+                    <td><input type="text" name="shippingAddress[state]" value="<?php echo $shippingAddress->state; ?>"></td>
                 </tr>
                 <tr>
                     <td>country:</td>
-                    <td><input type="text" name="address[country]" value="<?php echo $customerAddress->country; ?>"></td>
+                    <td><input type="text" name="shippingAddress[country]" value="<?php echo $shippingAddress->country; ?>"></td>
                 </tr>
                 <tr>
                     <td>zipcode:</td>
-                    <td><input type="text" name="address[zipcode]" value="<?php echo $customerAddress->zipcode; ?>"></td>
+                    <td><input type="text" name="shippingAddress[zipcode]" value="<?php echo $shippingAddress->zipcode; ?>"></td>
+                </tr>
+
+
+            </table>
+
+            <table class="table table-light">
+
+                <tr>
+                    <th colspan="2"><h3>Billing Address</h3></th>
+                </tr>
+                <tr>
+                    <td>
+                        Address:
+                    </td>
+                    <td><textarea name="billingAddress[address]"><?php echo $billingAddress->address; ?></textarea></td>
+
+                </tr>
+                <tr>
+                    <td>city:</td>
+                    <td><input type="text" name="billingAddress[city]" value="<?php echo $billingAddress->city; ?>"></td>
+                </tr>
+                <tr>
+                    <td>state:</td>
+                    <td><input type="text" name="billingAddress[state]" value="<?php echo $billingAddress->state; ?>"></td>
+                </tr>
+                <tr>
+                    <td>country:</td>
+                    <td><input type="text" name="billingAddress[country]" value="<?php echo $billingAddress->country; ?>"></td>
+                </tr>
+                <tr>
+                    <td>zipcode:</td>
+                    <td><input type="text" name="billingAddress[zipcode]" value="<?php echo $billingAddress->zipcode; ?>"></td>
                 </tr>
 
 

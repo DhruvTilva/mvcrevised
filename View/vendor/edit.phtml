@@ -1,0 +1,113 @@
+<?php
+
+$url = new Model_Core_Url();
+$vendor = $this->vendor;
+$vendorAddress = $this->address;
+
+
+
+?>
+<?php require_once "View/html/head.phtml"; ?>
+    <?php require_once "View/html/header.phtml"; ?>
+
+    <div class="content-main">
+        <form action="index.php?c=vendor&a=save&id=<?php echo $vendor->vendor_id ?>" method="post">
+
+            
+            <div class="contents">
+
+            <table class="table table-light">
+                <tr>
+                    <td>
+                        <h1>Edit Vendor</h1>
+                    </td>
+                    <td class="sub-head">
+                        <a href="index.php?c=vendor&a=grid">Cancel</a>
+                        <button type="submit">Save</button>
+                    </td>
+                </tr>
+            </table>
+
+
+
+            <div class="content active">
+            <table class="table table-light">
+
+                
+                <tr>
+                    <td>First_name: </td>
+                    <td><input type="text" name="vendor[firstname]" value="<?php echo $vendor->firstname;?>"></td>
+                </tr>
+                <tr>
+                    <td>Last_name: </td>
+                    <td><input type="text" name="vendor[lastname]" value="<?php echo $vendor->lastname;?>"></td>
+                </tr>
+                <tr>
+                    <td>Email: </td>
+                    <td><input type="email" name="vendor[email]" value="<?php echo $vendor->email;?>"></td>
+                </tr>
+                <tr>
+                    <td>Gender: </td>
+                    <td>
+                        <input type="radio" name="vendor[gender]" value="M" <?php if($vendor->gender=='M'){echo"checked";}?>>Male <br>
+                        <input type="radio" name="gender" value="F" <?php if($vendor->gender=='F'){echo"checked";}?>>Female <br>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>Mobile: </td>
+                    <td><input type="number" name="vendor[mobile]" value="<?php echo $vendor->mobile;?>"></td>
+                </tr>
+                <tr>
+                    <td>Status: </td>
+                    <td>
+                       <select name="vendor[status]" value="<?php echo $vendor->status ?>"> 
+                        <option>SELECT BELOW</option>
+                        <option>ACTIVE</option>
+                        <option>INACTIVE</option>
+                    </select>
+                    </td>
+                </tr>
+
+
+            </table>
+            <div>
+
+            <div class="content">
+            <table class="table table-light">
+
+                <tr>
+                    <th colspan="2"><h3> Vendor Address</h3></th>
+                </tr>
+                <tr>
+                    <td>
+                        Address:
+                    </td>
+                    <td><textarea name="address[address]"><?php echo $vendorAddress->address; ?></textarea></td>
+
+                </tr>
+                <tr>
+                    <td>city:</td>
+                    <td><input type="text" name="address[city]" value="<?php echo $vendorAddress->city; ?>"></td>
+                </tr>
+                <tr>
+                    <td>state:</td>
+                    <td><input type="text" name="address[state]" value="<?php echo $vendorAddress->state; ?>"></td>
+                </tr>
+                <tr>
+                    <td>country:</td>
+                    <td><input type="text" name="address[country]" value="<?php echo $vendorAddress->country; ?>"></td>
+                </tr>
+                <tr>
+                    <td>zipcode:</td>
+                    <td><input type="text" name="address[zipcode]" value="<?php echo $vendorAddress->zipcode; ?>"></td>
+                </tr>
+
+
+            </table>
+            <div>
+
+        </form>
+    </div>
+</div>
+   
