@@ -94,17 +94,7 @@ class Model_Core_Table{
 		return $this->getAdapter()->update($sql);
 	}
 
-	// public function delete($conditions)
-	// {
-	// 	foreach ($conditions as $key => $value) {
-	// 		$conditionArray[] = " `$key` = '$value'";
-	// 	}
-
-	// 	$keyString = implode('AND',$conditionArray);
-
-	// 	$query = "DELETE FROM `{$this->getTableName()}` WHERE {$keyString}";
-	// 	return $this->getAdapter()->delete($query);
-	// }
+	
 
 	public function delete($id)
 	{

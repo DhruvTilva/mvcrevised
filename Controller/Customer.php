@@ -29,8 +29,8 @@ class Controller_Customer extends Controller_Core_Action
 	{
 			$request = $this->getRequest();
 			$id = $request->getParams('id');
-			$product = Ccc::getModel('Product_Row')->load($id);
-			$this->getView()->setTemplate('product/edit.phtml')->setData(['product' => $product]);
+			$customer = Ccc::getModel('Customer_Row')->load($id);
+			$this->getView()->setTemplate('customer/edit.phtml')->setData(['customer' => $customer]);
 			$this->render();
 	}
 
@@ -41,43 +41,45 @@ class Controller_Customer extends Controller_Core_Action
 			if(!$request->isPost()){
 				throw new Exception("Error Request");
 			}
-			$customer = $request->getPost('customer');
-        	$address = $request->getPost('address');
-
+			$data = $request->getPost('customer');
+			if (!$data) {
+				throw new Exception("no data posted");
+			}
 			$id=$request->getParams('id');
-
-			$customerModelRow=Ccc::getModel('Customer_Row');
-			
 			if ($id) {
-				$customerModelRow->setData($customer);
-				$customerModelRow->getData();
+				$customer=Ccc::getModel('Customer_Row')->load($id);
+				date_default_timezone_set('Asia/Kolkata');
+				$customer->updated_at=date('Y-m-d H:i:s');
 				
-				$customerResult = $customerModelRow->save();
-
-			
-				$customerAddressModelRow=Ccc::getModel('CustomerAddress_Row');
-				$customerAddressModelRow->setData($address);
-				$customerAddressModelRow->getPrimaryKey();
-				$customerResult = $customerAddressModelRow->save();
 			}
 			else{
-				$customerModelRow=Ccc::getModel('Customer_Row');
-				$customerModelRow->setData($customer);
-				$customerResult = $customerModelRow->save();
-				$address['customer_id'] = $customerResult;
-				$customerAddressModelRow=Ccc::getModel('CustomerAddress_Row');
-				$customerAddressModelRow->setData($address);
-				$customerResult = $customerAddressModelRow->save();
+				$customer= Ccc::getModel('Customer_Row');
+				date_default_timezone_set('Asia/Kolkata');
+				$customer->inserted_at = date("Y-m-d h:i:s");
+			}
+			$customer->setData($data);
+			$customer->save();
+
+			$postDataAddress = $this->getRequest()->getpost('address');
+			print_r($postDataAddress); die();
+			if (!$postDataAddress) {
+				throw new Exception("no data posted");
+			}
+			$id=$request->getParams('id');
+			if ($id) {
+				$customerAddress=Ccc::getModel('Customer_Address_Row')->load($id);
+				$customerAddress->customer_id = $customer->customer_id;
 
 			}
-			
-			$this->redirect('grid');
+			$customerAddress->setData($postDataAddress);
+			$customerAddress->save();
 		}
-		catch(Exception $e){
-	
-			$this->redirect('grid');
+		catch(Exception $e){	
+				echo "catch found";
 		}
+		$this->redirect('grid', 'product', null, true);
 	}
+	
 
 	public function deleteAction()
 	{
