@@ -65,13 +65,14 @@ class Controller_Vendor extends Controller_Core_Action
 			
 
 			$vendor=Ccc::getModel('Vendor')->load($id);
+			$vendorAddress=Ccc::getModel('Vendor_Address')->load($id);
 			if(!$vendor){
 				throw new Exception("Invalid Id.", 1);
 			}
 
 			$layout = new Block_Core_Layout();
 			$edit = $layout->createBlock('Vendor_Edit');
-			$edit->setData(['vendor'=>$vendor]);
+			$edit->setData(['vendor'=>$vendor,'address'=>$vendorAddress]);
 			$layout->getChild('content')
 					->addChild('edit',$edit);
 			// $layout->render();

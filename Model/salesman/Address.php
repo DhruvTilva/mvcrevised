@@ -1,10 +1,15 @@
-<?php
+<?php 
+require_once 'Model/Core/Table.php';
 
 class Model_Salesman_Address extends Model_Core_Table
 {
-	function __construct()
-	{
-		parent::__construct();
-		$this->setTableName('salesman_address')->setPrimarykey('address_id');
-	}
+			
+
+	protected $resourceClass = 'Model_Salesman_Address_Resource';
+    protected $collectionClass= 'Model_Core_Table_Collection';
+
+
+	
 }
+
+?>
