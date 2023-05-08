@@ -12,17 +12,14 @@ class Controller_Product extends Controller_Core_Action
 	public function gridAction()
 	{
 			try {
-			$query = "SELECT * FROM `product`";
-			$products = Ccc::getModel('Product_Row')->fetchAll($query);
-			if (!$products) {
-				throw new Exception("Products not found", 1);
-			}
-			// $this->getView()->setTemplate('product/grid.phtml')->setData(['products'=>$products]);
-			// $this->render();
+			
 			$layout = new Block_Core_Layout();
 			$grid = $layout->createBlock('Product_Grid');
 			$layout->getChild('content')->addChild('grid',$grid);
+			// echo $layout->toHtml();
 			$layout->render();
+
+
 			
 		} catch (Exception $e) {
 			echo "catch found";
@@ -32,30 +29,87 @@ class Controller_Product extends Controller_Core_Action
 
 	public function addAction()
 	{
-		$this->getView()->setTemplate('product/add.phtml');
-		$this->render();
+		$message = Ccc::getModel('Core_Message');
+		try 
+		{
+			$product = Ccc::getModel('Product');
+			if(!$product){
+				throw new Exception("Invalid request.", 1);
+			}
+			
+			$layout = new Block_Core_Layout();
+			$edit = $layout->createBlock('Product_Edit');
+			$edit->setData(['product'=>$product]);
+			$layout->getChild('content')->addChild('edit',$edit);
+			echo $layout->toHtml();
+
+		} 
+		catch (Exception $e) 
+		{
+			$message->addMessage('Product not Saved.',Model_Core_Message::FAILURE);
+			$this->redirect('grid');
+		}
 	}
 
 
 	public function editAction()
 	{
-			$request = $this->getRequest();
-			$id = $request->getParams('id');
-			$product = Ccc::getModel('Product_Row')->load($id);
-			$this->getView()->setTemplate('product/edit.phtml')->setData(['product' => $product]);
-			$this->render();
+			$message = Ccc::getModel('Core_Message');
+		try 
+		{
+			$id =$this->getRequest()->getParams('id');
+			if(!$id){
+	    		throw new Exception("Invalid request.", 1);
+			}
+			
+
+			$product=Ccc::getModel('Product')->load($id);
+			if(!$product){
+				throw new Exception("Invalid Id.", 1);
+			}
+
+			$layout = new Block_Core_Layout();
+			$edit = $layout->createBlock('Product_Edit');
+			$edit->setData(['product'=>$product]);
+			$layout->getChild('content')
+					->addChild('edit',$edit);
+			// $layout->render();
+			echo $layout->toHtml();
+
+		} 
+		catch (Exception $e) 
+		{
+			$message->addMessage('Product Not Saved',Model_Core_Message::FAILURE);
+			$this->redirect('grid');
+		}
 	}
 
 	
 
 	public function deleteAction()
 	{
-		$request = $this->getRequest();
-		$id = $request->getParams('id');
-		$query = "DELETE FROM `product` WHERE `product_id` = {$id}";
-		$adapter = $this->getAdapter();
-		$adapter->update($query);
-		header("Location:index.php?c=Product&a=grid");
+		try
+		{
+		$message=Ccc::getModel('Core_Message');
+		$request=$this->getRequest();
+		$id = (int) $request->getParams('id');
+		if(!$id){
+			throw new Exception("Invalid ID.", 1);
+		}
+		$productModeRow = Ccc::getModel('Product'); 
+		$productModeRow->load($id);
+		$productResult = $productModeRow->delete();
+		if(!$productResult)
+		{
+			throw new Exception("Error Data is Not Deleted", 1);
+		}
+		$message->addMessage('Product Deleted Successfully',Model_Core_Message::SUCCESS);
+		}
+		catch(Exception $e)
+		{
+			$message->addMessage('Product is Not Deleted',Model_Core_Message::FAILURE);
+		}
+		$this->redirect('grid');
 	}
 
 	public function saveAction()
@@ -75,7 +129,7 @@ class Controller_Product extends Controller_Core_Action
 			// print_r($id); die();
 			if ($id) {
 				// echo 111; die();
-				$product=Ccc::getModel('Product_Row')->load($id);
+				$product=Ccc::getModel('Product')->load($id);
 				date_default_timezone_set('Asia/Kolkata');
 				$product->updated_at=date('Y-m-d H:i:s');
 				
@@ -83,7 +137,7 @@ class Controller_Product extends Controller_Core_Action
 			else{
 				// echo 222; die();
 
-				$product= Ccc::getModel('Product_Row');
+				$product= Ccc::getModel('Product');
 				date_default_timezone_set('Asia/Kolkata');
 				$product->inserted_at = date("Y-m-d h:i:s");
 				// print_r($product); die();
@@ -95,6 +149,10 @@ class Controller_Product extends Controller_Core_Action
 			$product->save();
 			// print_r($result); die();
 			
+			$message=Ccc::getModel('Core_Message');
+			$message->addMessage('Product saved successfully.', Model_Core_Message::SUCCESS);
+			$this->redirect('grid');
+
 		}
 		catch(Exception $e){	
 				echo "catch found";
