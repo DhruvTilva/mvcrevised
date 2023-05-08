@@ -11,7 +11,7 @@ class Block_Product_Grid extends Block_Core_Grid
 	{
 		parent::__construct();
 		$this->setTitle('Manage Product Content');
-		$this->setTemplate('product/grid.phtml');
+		// $this->setTemplate('core/grid.phtml');
 	}
 
 	protected function _prepareColumns()
@@ -84,9 +84,9 @@ class Block_Product_Grid extends Block_Core_Grid
 	public function getCollection()
 	{
 		$sql = "SELECT * FROM `product` ORDER BY `product_id` DESC";
-		$row = Ccc::getModel('Product_Row');
+		$row = Ccc::getModel('Product');
 		$products = $row->fetchAll($sql);
-		return $products;
+		return $products->getData();
 		
 	}
 }

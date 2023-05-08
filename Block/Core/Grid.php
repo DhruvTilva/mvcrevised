@@ -6,31 +6,73 @@ class Block_Core_Grid extends Block_Core_Template
 	protected $_actions = [];
 	protected $_buttons = [];
 	protected $_title = Null;
+	// protected $_pager = Null;
+	// protected $_count = Null;
+	
+	function __construct()
+	{
+		parent::__construct();
+		$this->setTemplate('core/grid.phtml');
+		$this->_prepareColumns();
+		$this->_prepareActions();
+		$this->_prepareButtons();
+		$this->setTitle('Manage Grid');
+	}
 
-	//to set columns of the table 
+	// public function setPagination(Model_Core_Pagination $pager)
+	// {
+	// 	$this->_pager = $pager;
+	// 	return $this;
+	// }
+
+	// public function getPagination()
+	// {
+	// 	if($this->_pager){
+	// 		return $this->_pager;
+	// 	}
+
+	// 	$request = Ccc::getModel('Core_Request');
+    //     $currentPage = ($request->getParams('p',1));
+    //     $recordPerPage = $request->getParams('rpp',10);
+	// 	$pager = new Model_Core_Pagination($this->getCount(), $currentPage);
+	// 	$pager->setRecordPerPage($recordPerPage);
+	// 	$this->setPagination($pager);
+	// 	return $pager;
+	// }
+
+	// public function getCount()
+    // {
+    //     return $this->_count;
+    // }
+
+    // public function setCount($count)
+    // {
+    //     $this->_count = $count;
+    //     return $this;
+    // }
 	public function setColumns(array $columns)
 	{
 		$this->_columns = $columns;
 		return $this;
 	}
-	//get the columns of the tables
+
 	public function getColumns()
 	{
 		return $this->_columns;
 	}
-	//adding one colum
+
 	public function addColumn($key, $value)
 	{
 		$this->_columns[$key] = $value;
 		return $this;
 	}
-	//remove that column
+
 	public function removeColumn($key)
 	{
 		unset($this->_columns[$key]);
 		return $this;
 	}
-	// to ge that column
+
 	public function getColumn($key)
 	{
 		if(array_key_exists($key, $this->_columns)){
@@ -38,12 +80,12 @@ class Block_Core_Grid extends Block_Core_Template
 		}
 		return false;
 	}
-	// prepare all columns
+
 	protected function _prepareColumns()
 	{
 		return $this;
 	}
-	// to setting actions like edit, delete
+
 	public function setActions(array $actions)
 	{
 		$this->_actions = $actions;
@@ -54,7 +96,7 @@ class Block_Core_Grid extends Block_Core_Template
 	{
 		return $this->_actions;
 	}
-	//add actions edit delete
+
 	public function addAction($key, $value)
 	{
 		$this->_actions[$key] = $value;
@@ -79,16 +121,28 @@ class Block_Core_Grid extends Block_Core_Template
 	{
 		return $this;
 	}
+
 	public function getEditUrl($row, $key)
 	{
 		return $this->getUrl($key,Null,['id'=>$row->getId()]);
+	}
+
+	public function getSalesmanPrice($row,$key)
+	{			
+		return $this->getUrl('grid','sprice',['id'=>$row->getId()]);
+
+	}
+	public function getMediaUrl($row,$key)
+	{			
+		return $this->getUrl('grid','media',['id'=>$row->getId()]);
+
 	}
 
 	public function getDeleteUrl($row, $key)
 	{
 		return $this->getUrl($key,Null,['id'=>$row->getId()]);
 	}
-	//to setting buttons just like add
+
 	public function setButtons(array $buttons)
 	{
 		$this->_buttons = $buttons;
@@ -99,12 +153,20 @@ class Block_Core_Grid extends Block_Core_Template
 	{
 		return $this->_buttons;
 	}
-	//adding the add or other buttons
+
 	public function addButton($key, $value)
 	{
 		$this->_buttons[$key] = $value;
 		return $this;
 	}
+
+// --------------------------------------
+	public function paymentRedirect()
+	{
+	
+		// return header("Location: http://localhost/Project/newmvc-dhruvtilva/View/order/payment.phtml");
+	}
+
 	public function removeButton($key)
 	{
 		unset($this->_buttons[$key]);
@@ -123,7 +185,7 @@ class Block_Core_Grid extends Block_Core_Template
 	{
 		return $this;
 	}
-	// to setting a title 
+
 	public function setTitle($title)
 	{
 		$this->_title = $title;
@@ -135,7 +197,11 @@ class Block_Core_Grid extends Block_Core_Template
 		return $this->_title;
 	}
 
-	
+	public function getColumnValue($row, $key)
+	{
+		if($key == 'status'){
+			return $row->getStatusText();
+		}
+		return $row->$key;
+	}
 }
-
-?>
