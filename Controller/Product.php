@@ -4,6 +4,10 @@
 
 class Controller_Product extends Controller_Core_Action 
 {
+	public function render()
+		{
+			return $this->getView()->render();
+		}
 	
 	public function gridAction()
 	{
@@ -13,8 +17,13 @@ class Controller_Product extends Controller_Core_Action
 			if (!$products) {
 				throw new Exception("Products not found", 1);
 			}
-			$this->getView()->setTemplate('product/grid.phtml')->setData(['products'=>$products]);
-			$this->render();
+			// $this->getView()->setTemplate('product/grid.phtml')->setData(['products'=>$products]);
+			// $this->render();
+			$layout = new Block_Core_Layout();
+			$grid = $layout->createBlock('Product_Grid');
+			$layout->getChild('content')->addChild('grid',$grid);
+			$layout->render();
+			
 		} catch (Exception $e) {
 			echo "catch found";
 		}
