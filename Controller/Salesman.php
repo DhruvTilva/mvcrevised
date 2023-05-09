@@ -13,7 +13,6 @@ class Controller_Salesman extends Controller_Core_Action
 			$layout = new Block_Core_Layout();
 			$grid = $layout->createBlock('Salesman_Grid');
 			$layout->getChild('content')->addChild('grid',$grid);
-			// echo $layout->toHtml();
 			$layout->render();
 		} catch (Exception $e) {
 			echo "catch found";
@@ -68,7 +67,6 @@ class Controller_Salesman extends Controller_Core_Action
 			$edit->setData(['salesman'=>$salesman,'address'=>$salesmanAddress]);
 			$layout->getChild('content')
 					->addChild('edit',$edit);
-			// $layout->render();
 			echo $layout->toHtml();
 
 		} 
@@ -105,7 +103,6 @@ class Controller_Salesman extends Controller_Core_Action
 			$salesman->save();
 
 			$postDataAddress = $this->getRequest()->getpost('address');
-			// print_r($postDataAddress); die();
 			if (!$postDataAddress) {
 				throw new Exception("no data posted");
 			}
