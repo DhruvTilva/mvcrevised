@@ -3,19 +3,19 @@
 
 class Controller_Customer extends Controller_Core_Action 
 {
-	
+	public function render()
+		{
+			return $this->getView()->render();
+		}
 	public function gridAction()
 	{
 		// try {
 			// echo 111; die;
-			$query = "SELECT * FROM `customer`";
-			$customers = Ccc::getModel('Customer_Row')->fetchAll($query);
-			// print_r($customers); die();
-			// if (!$customers) {
-			// 	throw new Exception("Customers not found", 1);
-			// }
-			$this->getView()->setTemplate('customer/grid.phtml')->setData(['customers'=>$customers]);
-			$this->render();
+			$layout = new Block_Core_Layout();
+			$grid = $layout->createBlock('Customer_Grid');
+			$layout->getChild('content')->addChild('grid',$grid);
+			// echo $layout->toHtml();
+			$layout->render();
 		// } catch (Exception $e) {
 		// 	echo "catch found";
 		// }
@@ -23,23 +23,59 @@ class Controller_Customer extends Controller_Core_Action
 
 	public function addAction()
 	{
-		$this->getView()->setTemplate('customer/add.phtml');
-		$this->render();
+		$message = Ccc::getModel('Core_Message');
+		try 
+		{
+			$customer = Ccc::getModel('Customer');
+			if(!$customer){
+				throw new Exception("Invalid request.", 1);
+			}
+			
+			$layout = new Block_Core_Layout();
+			$edit = $layout->createBlock('Customer_Edit');
+			$edit->setData(['customer'=>$customer]);
+			$layout->getChild('content')->addChild('edit',$edit);
+			echo $layout->toHtml();
+
+		} 
+		catch (Exception $e) 
+		{
+			$message->addMessage('Customer not Saved.',Model_Core_Message::FAILURE);
+			$this->redirect('grid');
+		}
 	}
 
 	public function editAction()
 	{
-			$request = $this->getRequest();
-			$id = $request->getParams('id');
-			$customer = Ccc::getModel('Customer_Row')->load($id);
-			$customerAddress = Ccc::getModel('Customer_Address_Row')->load($id);
-			$billingId= $customer->billing_id; 
-			$shippingId= $customer->shipping_id; 
-			$billingAddress = Ccc::getModel('Customer_Row')->getBillingAddress($billingId);
-			$shippingAddress = Ccc::getModel('Customer_Row')->getShippingAddress($shippingId);
+			$message = Ccc::getModel('Core_Message');
+		try 
+		{
+			$id =$this->getRequest()->getParams('id');
+			if(!$id){
+	    		throw new Exception("Invalid request.", 1);
+			}
+			
 
-			$this->getView()->setTemplate('customer/edit.phtml')->setData(['customer' => $customer,'billingaddress' =>$billingAddress,'shipppingaddress' =>$shippingAddress]);
-			$this->render();
+			$customer=Ccc::getModel('Customer')->load($id);
+			$customerAddress=Ccc::getModel('Customer_Address')->load($id);
+			if(!$customer){
+				throw new Exception("Invalid Id.", 1);
+			}
+
+			$layout = new Block_Core_Layout();
+			$edit = $layout->createBlock('Customer_Edit');
+			$edit->setData(['customer'=>$customer,'address'=>$customerAddress]);
+			$layout->getChild('content')
+					->addChild('edit',$edit);
+			// $layout->render();
+			echo $layout->toHtml();
+
+		} 
+		catch (Exception $e) 
+		{
+			$message->addMessage('Customer Not Saved',Model_Core_Message::FAILURE);
+			$this->redirect('grid');
+		}
 	}
 
 	// public function saveAction()
@@ -218,12 +254,28 @@ class Controller_Customer extends Controller_Core_Action
 
 	public function deleteAction()
 	{
-		$request = $this->getRequest();
-		$id = $request->getParams('id');
-		$query = "DELETE FROM `customer` WHERE `customer_id` = {$id}";
-		$adapter = $this->getAdapter();
-		$adapter->update($query);
-		header("Location:index.php?c=customer&a=grid");
+		try
+		{
+		$message=Ccc::getModel('Core_Message');
+		$request=$this->getRequest();
+		$id = (int) $request->getParams('id');
+		if(!$id){
+			throw new Exception("Invalid ID.", 1);
+		}
+		$customerModeRow = Ccc::getModel('Customer'); 
+		$customerModeRow->load($id);
+		$customerResult = $customerModeRow->delete();
+		if(!$customerResult)
+		{
+			throw new Exception("Error Data is Not Deleted", 1);
+		}
+		$message->addMessage('Customer Deleted Successfully',Model_Core_Message::SUCCESS);
+		}
+		catch(Exception $e)
+		{
+			$message->addMessage('Customer is Not Deleted',Model_Core_Message::FAILURE);
+		}
+		$this->redirect('grid');
 	}
 
 }

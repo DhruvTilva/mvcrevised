@@ -1,0 +1,72 @@
+<?php
+
+$url = new Model_Core_Url();
+$category = $this->category;
+// print_r($parentCategories); die();
+$parent=$category->getParentCategories();
+
+
+
+
+
+
+?>
+
+
+    <div class="content-main">
+        <form action="" id="category" method="post">
+
+            <table>
+                <tr>
+                    <td>
+                    <h1>Edit Category</h1>
+                    </td>
+                    <td class="sub-head">
+                    <button type="submit">Save</button>
+                    <a href="index.php?c=category&a=grid">Cancel</a>
+                    </td>
+                </tr>
+            </table>
+            <table border="2px" style="border-collapse: collapse">
+                
+                <tr>
+                    <td>Category_id: </td>
+                    <td><?php echo $category->category_id;?></td>
+                </tr>
+                <tr>
+                    <td>Name: </td>
+                    <td><input type="text" name="category[name]" value="<?php echo $category->name;?>"></td>
+                </tr>
+                <tr>
+                    <td>Parent:</td>
+                    <td>
+                        <select name="category[parent_id]">
+                            <?php foreach($parent as $id=>$path){ ?>
+                                <?php $selected = ($category->selectPath() == $path) ? 'selected':'' ?>
+                                <option value="<?php echo $id ?>" <?php echo $selected ?>><?php echo $category->getPathText($path) ?></option>
+                            <?php } ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                <td>Status: </td>
+                <td>
+                    <select name="category[status]" >
+                        <?php foreach ($category->getResource()->getStatusOptions() as $key => $value): ?>
+                            <?php $selected = ($key == $category->getStatus()) ? 'selected':'' ?>
+                            <option value="<?php echo $key ?>"<?php echo $selected; ?>><?php echo $value ?></option>
+                            <?php endforeach; ?>
+                    </select>
+                </td>
+            </tr>
+                
+                <tr>
+                    <td>Description: </td>
+                    <td>
+                        <textarea name="category[description]"cols="30" rows="10" ><?php echo $category->description;?></textarea>
+                    </td>
+                </tr>
+               
+            </table>
+        </form>
+    </div>

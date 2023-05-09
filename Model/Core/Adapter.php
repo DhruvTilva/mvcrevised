@@ -74,6 +74,33 @@ class Model_Core_Adapter
 		}
 		return true;
 	}
+	public function fetchOne($sql)
+	{
+		$result = $this->query($sql);
+		if($result->num_rows == 0){
+			return Null;
+		}
+
+		$oneRow = $result->fetch_array();
+		return (array_key_exists(0, $oneRow)) ? $oneRow[0] : null;
+	}
+
+
+	public function fetchPairs($query)
+	{
+		$fetchPairs=$this->query($query);
+		if(!$fetchPairs){
+			return False;
+		}
+		$data = $fetchPairs->fetch_all();
+
+		$column1=array_column($data, '0');
+		$column2=array_column($data, '1');
+		if (!$column2) {
+			$column2=array_fill(0, count($column2), null);
+		}
+		return array_combine($column1,$column2);
+	}
 
 
 
