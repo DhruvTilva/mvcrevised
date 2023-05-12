@@ -40,7 +40,7 @@ class Model_Core_Session
 	}
 
 
-	//clear seted array
+	
 	public function unset($key)
 	{
 		if(array_key_exists($key,$_SESSION)){
