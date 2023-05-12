@@ -7,9 +7,9 @@ class Model_Core_Message
 {
 
  	protected $session = null;
-    const SUCCESS='success';
-    const FAILURE='failure';
-    const NOTICE='notice';
+    const SUCCESS='alert alert-success';
+    const FAILURE='alert alert-danger';
+   
 
 
     public function __construct()

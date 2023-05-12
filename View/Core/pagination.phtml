@@ -1,0 +1,45 @@
+<?php $pager = $this->getPager() ?>
+    <div class="row">
+    <?php if($pager->getNumberOfPage()>1): ?>
+        <div class="col-9">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li class="page-item" id="start">
+                        <a class="page-link <?php echo ($pager->getStart() == 0) ? 'disabled':'' ?>" onclick="<?php echo $this->getUrl('grid',Null,['p'=>$pager->getStart()]) ?>">Start</a>
+                    </li>
+                    <li class="page-item" id="previous">
+                        <a class="page-link <?php echo ($pager->getPrevious() == 0) ? 'disabled':'' ?>" onclick="<?php echo $this->getUrl('grid',Null,['p'=>$pager->getPrevious()]) ?>">Previous</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link"><?php echo $pager->getCurrentPage() ?></a>
+                    </li>
+                    <li class="page-item" id="next">
+                        <a class="page-link <?php echo ($pager->getNext() == 0) ? 'disabled':'' ?>" onclick="<?php echo $this->getUrl('grid',Null,['p'=>$pager->getNext()]) ?>">Next</a>
+                    </li>
+                    <li class="page-item" id="end">
+                        <a class="page-link <?php echo ($pager->getEnd() == 0) ? 'disabled':'' ?>" onclick="<?php echo $this->getUrl('grid',Null,['p'=>$pager->getEnd()]) ?>">End</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    <?php else: ?>
+        <div class="col-9"></div>
+    <?php endif; ?>
+        <div class="col-2">
+            <span class="fW-bold">Page <?php echo $pager->getCurrentPage(); ?></span> of <span class="fst-italic fw-bold">Total <?php echo $pager->getNumberOfPage() ?></span>
+        </div>
+        <div class="col-1">
+            <select class="form-select col-2" name="recordCount" id="showRecordCount" onchange="rpp(this.value)">
+                <?php foreach ($pager->getRecordPerPageOption() as $option) :?>
+                    <?php $selected = ($pager->getRecordPerPage() == $option) ? 'selected':'' ?>
+                <option value="<?php echo $option ?>" <?php echo $selected ?>><?php echo $option ?></option>
+                <?php endforeach; ?>
+            </select>
+            <input type="hidden" name="p" id="page-no">
+        </div>
+    </div>
+<script type="text/javascript">
+    function rpp(value) {
+        '<?php echo $this->getUrl('grid',Null,['p'=>1]) ?>&rpp='+value;
+    }
+</script>

@@ -11,19 +11,11 @@ class Controller_Product extends Controller_Core_Action
 	
 	public function gridAction()
 	{
-			try {
-			
 			$layout = new Block_Core_Layout();
 			$grid = $layout->createBlock('Product_Grid');
 			$layout->getChild('content')->addChild('grid',$grid);
-			// echo $layout->toHtml();
-			$layout->render();
-
-
-			
-		} catch (Exception $e) {
-			echo "catch found";
-		}
+			echo $layout->toHtml();
+	
 	}
 	
 
@@ -155,7 +147,8 @@ class Controller_Product extends Controller_Core_Action
 
 		}
 		catch(Exception $e){	
-				echo "catch found";
+			$message=Ccc::getModel('Core_Message');
+			$message->addMessage('Product not saved.', Model_Core_Message::FAILURE);
 		}
 		$this->redirect('grid', 'product', null, true);
 	}

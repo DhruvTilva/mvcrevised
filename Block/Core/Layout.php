@@ -21,25 +21,33 @@ class Block_Core_Layout extends Block_Core_Template
     }
 
 	public function prepareChildren()
-	{
-		$head = $this->createBlock('Html_head');
-        $this->addChild('head', $head);
+        {
 
-        $header = $this->createBlock('Html_Header');
-        $this->addChild('header',$header);
+          $header = $this->createBlock('Html_Header');
+          $this->addChild('header',$header);
 
-        $content = $this->createBlock('Html_Content');
-        $this->addChild('content',$content);
+          $left = $this->createBlock('Html_Left');
+          $this->addChild('left',$left);
 
-        $left = $this->createBlock('Html_Left');
-        $this->addChild('left',$left);
 
-        $right = $this->createBlock('Html_Right');
-        $this->addChild('right',$right);
-        
-        $footer = $this->createBlock('Html_Footer');
-        $this->addChild('footer',$footer);
-	}
+          $right = $this->createBlock('Html_Right');
+          $this->addChild('right',$right);
+
+          $content = $this->createBlock('Html_Content');
+          $this->addChild('content',$content);
+          
+          $footer = $this->createBlock('Html_Footer');
+          $this->addChild('footer',$footer);
+
+          $message = $this->createBlock('Html_Message');
+          $this->addChild('message',$message);
+
+          $head = $this->createBlock('Html_head');
+          $this->addChild('head', $head);
+      
+     
+          
+        }
 }
 
 

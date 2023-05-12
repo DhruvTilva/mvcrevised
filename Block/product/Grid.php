@@ -11,7 +11,6 @@ class Block_Product_Grid extends Block_Core_Grid
 	{
 		parent::__construct();
 		$this->setTitle('Manage Product Content');
-		// $this->setTemplate('core/grid.phtml');
 	}
 
 	protected function _prepareColumns()
