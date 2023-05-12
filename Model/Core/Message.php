@@ -55,7 +55,7 @@ class Model_Core_Message
     }
 
 
-    //remove messages with unset func
+   
   	public function clearMessage()
   	{
         $session=$this->getSession();

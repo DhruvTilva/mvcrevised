@@ -38,7 +38,7 @@ class Block_Core_Layout extends Block_Core_Template
           
           $footer = $this->createBlock('Html_Footer');
           $this->addChild('footer',$footer);
-
+          //block  of message
           $message = $this->createBlock('Html_Message');
           $this->addChild('message',$message);
 
