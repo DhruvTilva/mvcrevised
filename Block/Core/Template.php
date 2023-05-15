@@ -10,6 +10,7 @@ class Block_Core_Template extends Model_Core_View
 	protected $children=[];
 	protected $layout=null;
 	protected $pager = null;
+	// protected $request
 
 	
 	//auto run when obj of class
