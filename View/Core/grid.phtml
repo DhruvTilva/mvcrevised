@@ -1,6 +1,8 @@
 <?php
 $rows = $this->getCollection();
 // echo "<pre>";
+// print_r($this);
+// die();
 // // // $pager = Ccc::getModel('Core_Pager');
 $pager = $this->getPager();
 // print_r($pager); 
@@ -47,11 +49,14 @@ $pager = $this->getPager();
 	</table>
 	<table border="2px" width="100%">
 		<tr>
-			<td><a href="Index.php?c=product&a=grid&p=<?php echo $pager->start; ?>">START</a></td>
-			<td><a href="Index.php?c=product&a=grid&p=<?php echo $pager->previous; ?>">PREVIOUS</a></td>
-			<td><a href="Index.php?c=product&a=grid&p=<?php echo $pager->currentPage; ?>"><?php echo $pager->currentPage; ?></a></td>
-			<td><a href="Index.php?c=product&a=grid&p=<?php echo $pager->next; ?>">NEXT</a></td>
-			<td><a href="Index.php?c=product&a=grid&p=<?php echo $pager->end; ?>">END</a></td>
+		
+	        <td><a  href="<?php echo $this->getUrl('grid',null,['p'=>$pager->start],true) ?>">Start</a></td>
+	        <td><a  href="<?php echo $this->getUrl('grid',null,['p'=>$pager->previous],true) ?>" >Previous</a></td>
+	        <td><a  href="<?php echo $this->getUrl('grid',null,['p'=>$pager->currentPage],true) ?>" ><?php echo $pager->currentPage;?></a></td>
+	        <td><a  href="<?php echo $this->getUrl('grid',null,['p'=>$pager->next],true) ?>" >Next</a></td>
+	        <td><a  href="<?php echo $this->getUrl('grid',null,['p'=>$pager->end],true) ?>" >End</a></td>
+	    
+	
 		</tr>
 	</table>
 </div>

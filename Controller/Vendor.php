@@ -111,6 +111,7 @@ class Controller_Vendor extends Controller_Core_Action
 			$vendor->setData($data);
 			$vendor->save();
 
+
 			$postDataAddress = $this->getRequest()->getpost('address');
 			// print_r($postDataAddress); die();
 			if (!$postDataAddress) {
