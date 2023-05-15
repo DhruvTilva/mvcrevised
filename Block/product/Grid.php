@@ -82,10 +82,17 @@ class Block_Product_Grid extends Block_Core_Grid
 
 	public function getCollection()
 	{
-		$sql = "SELECT * FROM `product` ORDER BY `product_id` DESC";
+		$pager = $this->getPager();
+		$sql = "SELECT count(`product_id`) FROM `product` ";
+		$adapter = Ccc::getModel('Core_Adapter');
+		$totalRecord = $adapter->fetchOne($sql);
+		$setRecords = $pager->setTotalRecord($totalRecord)->calculate();
+
+		$sql = "SELECT * FROM `product` ORDER BY  `product_id` ASC LIMIT {$pager->startLimit},{$pager->recordPerPage} ";
 		$row = Ccc::getModel('Product');
 		$products = $row->fetchAll($sql);
 		return $products->getData();
+		// return $this;
 		
 	}
 }

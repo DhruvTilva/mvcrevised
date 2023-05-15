@@ -10,11 +10,18 @@ class Controller_Product extends Controller_Core_Action
 		}
 	
 	public function gridAction()
-	{
+	{ 
+		// echo "<pre>";
+		// $pager= new Model_Core_Pager();
+		// $pager->setTotalRecord(100)->calculate();
+		// print_r($pager);
+		// die();
+
 			$layout = new Block_Core_Layout();
 			$grid = $layout->createBlock('Product_Grid');
 			$layout->getChild('content')->addChild('grid',$grid);
 			echo $layout->toHtml();
+
 	
 	}
 	
@@ -142,7 +149,11 @@ class Controller_Product extends Controller_Core_Action
 			// print_r($result); die();
 			
 			$message=Ccc::getModel('Core_Message');
-			$message->addMessage('Product saved successfully.', Model_Core_Message::SUCCESS);
+
+			// $sku = $_POST['product']['sku'];
+			// print_r($sku);
+			// die();
+			$message->addMessage('Successfully Saved', Model_Core_Message::SUCCESS);
 			$this->redirect('grid');
 
 		}
