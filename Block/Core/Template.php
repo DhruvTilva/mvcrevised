@@ -9,12 +9,31 @@ class Block_Core_Template extends Model_Core_View
 	
 	protected $children=[];
 	protected $layout=null;
+	protected $pager = null;
+
+	
 	//auto run when obj of class
 	public function __construct()
 	{
 		//view parent calling
 	    parent::__construct();
 	
+	}
+	public function setPager(Model_Core_Pager $pager)
+	{
+		$this->pager = $pager;
+		return $this;
+	}
+
+	public function getPager()
+	{
+		if($this->pager){
+			return $this->pager;
+		}
+		$pager = new Model_Core_Pager();
+		$this->setPager($pager);
+		return $pager;
+
 	}
 	//getter setter of layout
 	public function setLayout(Block_Core_Layout $layout)

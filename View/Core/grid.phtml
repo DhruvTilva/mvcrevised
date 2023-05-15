@@ -1,7 +1,10 @@
 <?php
 $rows = $this->getCollection();
 // echo "<pre>";
-// print_r($rows); die();
+// // // $pager = Ccc::getModel('Core_Pager');
+$pager = $this->getPager();
+// print_r($pager); 
+
 ?>
 <div class="content">
 	<table class="table table-light">
@@ -41,5 +44,14 @@ $rows = $this->getCollection();
 		</tr>
 		<?php endforeach; ?>
 		<?php endif; ?>
+	</table>
+	<table border="2px" width="100%">
+		<tr>
+			<td><a href="Index.php?c=product&a=grid&p=<?php echo $pager->start; ?>">START</a></td>
+			<td><a href="Index.php?c=product&a=grid&p=<?php echo $pager->previous; ?>">PREVIOUS</a></td>
+			<td><a href="Index.php?c=product&a=grid&p=<?php echo $pager->currentPage; ?>"><?php echo $pager->currentPage; ?></a></td>
+			<td><a href="Index.php?c=product&a=grid&p=<?php echo $pager->next; ?>">NEXT</a></td>
+			<td><a href="Index.php?c=product&a=grid&p=<?php echo $pager->end; ?>">END</a></td>
+		</tr>
 	</table>
 </div>
