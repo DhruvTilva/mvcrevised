@@ -60,11 +60,6 @@ class Model_Eav_Attribute extends Model_Core_Table
 
 		
 
-		//  $sql = "SELECT * 
-        // FROM `eav_attribute_option` 
-        // WHERE `attribute_id` = '{$this->getAttribute()->getId()}' 
-        // ORDER BY `position` ASC";
-        // return $this->fetchAll($sql);
 		
 	}
 	

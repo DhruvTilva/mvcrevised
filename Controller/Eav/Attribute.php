@@ -187,7 +187,7 @@ class Controller_Eav_Attribute extends Controller_Core_Action
 								->load($optionId);
 							$option->setData([
 								'name'=>$value1,
-								'position'=>$postPosition['exist'][$optionId]
+								
 							]);
 							if(!$option->save()){
 								throw new Exception("Unable to save option.", 1);
