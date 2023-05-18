@@ -41,25 +41,25 @@ class Model_Eav_Attribute extends Model_Core_Table
 
 	public function getOptions()
 	{	
-		// echo "<pre>";
-		// print_r($this->getId()); die();
-		$sql = "SELECT `option_id`,`name` FROM `eav_attribute_option` WHERE `attribute_id` = {$this->getId()} ";
-		$pair = $this->getResource()->getAdapter()->fetchPairs($sql);
-		if ($pair) {
-			return $pair;
+		// =========================
+		// without source model
+		// $sql = "SELECT `option_id`,`name` FROM `eav_attribute_option` WHERE `attribute_id` = {$this->getId()} ";
+		// $pair = $this->getResource()->getAdapter()->fetchPairs($sql);
+		// if ($pair) {
+		// 	return $pair;
+		// }
+		// return $this;
+		// =========================
+
+		$sourceModel = $this->source_model;
+		if(!$sourceModel){
+			$sourceModel = 'Eav_Attribute_Option_Source';
 		}
-		return $this;
+		return Ccc::getModel($sourceModel)->setAttribute($this)->getOptions();
 
 
-		// $sql = "SELECT * FROM `eav_attribute_option` WHERE `attribute_id` = `{$this->getId()}`";
-		// $options = Ccc::getModel('Eav_Attribute_Option')->fetchAll($sql);
-		// return $options;
+		
 
-		//  $sql = "SELECT * 
-        // FROM `eav_attribute_option` 
-        // WHERE `attribute_id` = '{$this->getAttribute()->getId()}' 
-        // ORDER BY `position` ASC";
-        // return $this->fetchAll($sql);
 		
 	}
 	

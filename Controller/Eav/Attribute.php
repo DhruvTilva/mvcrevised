@@ -24,25 +24,23 @@ class Controller_Eav_Attribute extends Controller_Core_Action
 
 	public function addAction()
 	{
-		$message = Ccc::getModel('Core_Message');
 		try 
 		{
+			$message = Ccc::getModel('Core_Message');
 			$attribute = Ccc::getModel('Eav_Attribute');
 			if(!$attribute){
 				throw new Exception("Invalid request.", 1);
 			}
-			
 			$layout = new Block_Core_Layout();
 			$edit = $layout->createBlock('Eav_Attribute_Edit');
 			$edit->setData(['attribute'=>$attribute]);
 			$layout->getChild('content')->addChild('edit',$edit);
 			echo $layout->toHtml();
-
 		} 
 		catch (Exception $e) 
-		{	//message classs of failure
+		{	
+			$message = Ccc::getModel('Core_Message');
 			$message->addMessage('Attribute not Saved.',Model_Core_Message::FAILURE);
-			// $this->redirect('grid');
 			$this->redirect('grid',null,null,true);
 
 		}
@@ -51,9 +49,9 @@ class Controller_Eav_Attribute extends Controller_Core_Action
 
 	public function editAction()
 	{
-		$message = Ccc::getModel('Core_Message');
 		try 
 		{
+			$message = Ccc::getModel('Core_Message');
 			$id =$this->getRequest()->getParams('id');
 			if(!$id){
 	    		throw new Exception("Invalid request.", 1);
@@ -65,14 +63,16 @@ class Controller_Eav_Attribute extends Controller_Core_Action
 			}
 			$layout = new Block_Core_Layout();
 			$edit = $layout->createBlock('Eav_Attribute_Edit');
-			$edit->setData(['attribute'=>$attribute,'options'=>$options]);
+			// $edit->setData(['attribute'=>$attribute,'options'=>$options]);
+			$edit->setRow($attribute);
+
 			$layout->getChild('content')
 					->addChild('edit',$edit);
-			// $layout->render();
 			echo $layout->toHtml();
 		} 
 		catch (Exception $e) 
-		{//message classs of failure
+		{
+			$message = Ccc::getModel('Core_Message');
 			$message->addMessage('Attribute Not Saved',Model_Core_Message::FAILURE);
 			$this->redirect('grid');
 		}
@@ -97,11 +97,11 @@ class Controller_Eav_Attribute extends Controller_Core_Action
 		{
 			throw new Exception("Error Data is Not Deleted", 1);
 		}
-		//message class of success 
 		$message->addMessage('Attribute Deleted Successfully',Model_Core_Message::SUCCESS);
 		}
 		catch(Exception $e)
 		{
+			$message=Ccc::getModel('Core_Message');
 			$message->addMessage('Attribute is Not Deleted',Model_Core_Message::FAILURE);
 		}
 		$this->redirect('grid');
@@ -187,7 +187,7 @@ class Controller_Eav_Attribute extends Controller_Core_Action
 								->load($optionId);
 							$option->setData([
 								'name'=>$value1,
-								'position'=>$postPosition['exist'][$optionId]
+								
 							]);
 							if(!$option->save()){
 								throw new Exception("Unable to save option.", 1);
@@ -196,18 +196,6 @@ class Controller_Eav_Attribute extends Controller_Core_Action
 					}
 				}
 			}
-	// 		$id=$request->getParams('id');
-	// 		if ($id) {
-	// 			$optionobj=Ccc::getModel('Eav_Attribute_Option');
-				
-	// 		}
-	// 		else{
-			
-	// 			$optionobj= Ccc::getModel('Eav_Attribute_Option');
-	// 		}
-			
-	// 		$optionobj->setData($options);
-	// 		$optionobj->save();
 			$message=Ccc::getModel('Core_Message');
 			$message->addMessage('A..saved successfully.', Model_Core_Message::SUCCESS);
 			$this->redirect('grid','eav_attribute',null,true);
