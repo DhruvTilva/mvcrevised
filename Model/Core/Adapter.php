@@ -18,6 +18,7 @@ class Model_Core_Adapter
 	public function connect()
 	{
 		$connection=mysqli_connect($this->servername,$this->username,$this->password,$this->dbname);
+		// $connection = new PDO('mysql:host=localhost;dbname=newmvc-dhruvtilva;charset=utf8mb4', 'root', '', array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 		return $connection;
 	}
 
