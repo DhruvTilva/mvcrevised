@@ -1,0 +1,101 @@
+<?php
+// echo "<pre>";
+$attribute = $this->attribute;
+// print_r($attribute); die();
+$url = new Model_Core_Url();
+$options = $this->options;
+// print_r($this);  die();
+?>
+
+
+
+		<div class="content-main">
+
+        <form action="<?php echo ($url->getUrl('save'));?>" method="post">
+		<table class="table-primary">
+
+			<tr>
+                <td>
+                    <h1>Save Attribute</h1>
+                </td>
+                <th><a class="btn btn-dark" href="<?php echo ($url->getUrl('grid','eav_attribute',null,true));?>" role="button">Cancel</a></th>
+				<th><button type="submit" class="btn btn-dark">SAVE</button></th>
+				</tr>
+        </table>
+           </div>
+		<table class="table-primary">
+
+
+			<tr>
+				<td>Entity_ID</td>
+				
+				<td><select class="form-select" name="attribute[entity_type_id]">
+			    <?php foreach($attribute->getEntityType() as $key => $value):?>
+			    <?php $selected = ($attribute->entity_type_id == $key) ? 'selected':'' ?>
+				<option value="<?php echo $key ?>"<?php echo $selected ?>><?php echo $key ?>.<?php echo $value ?></option>
+			    <?php endforeach; ?>
+				</select></td>
+				
+			</tr>
+			<tr>
+				<td>Code</td>
+				<td> <input type="text" name="attribute[code]" value="<?php echo $attribute->code ?>">  </td>
+			</tr>
+			<tr>
+				<td>Backend Type</td>
+				<td><select class="form-select" name="attribute[backend_type]">
+					<option value="int" <?php echo ($attribute->backend_type == 'int') ? 'selected':'' ?>>INT</option>
+					<option value="varchar" <?php echo ($attribute->backend_type == 'varchar') ? 'selected':'' ?>>VAR</option>
+					<option value="decimal" <?php echo ($attribute->backend_type == 'decimal') ? 'selected':'' ?>>DEC</option>
+					<option value="datetime" <?php echo ($attribute->backend_type == 'datetime') ? 'selected':'' ?>>DATE</option>
+					<option value="text" <?php echo ($attribute->backend_type == 'text') ? 'selected':'' ?>>TEXT</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td>Name</td>
+				<td> <input type="text" name="attribute[name]" value="<?php echo $attribute->name ?>">  </td>
+			</tr>
+			<tr>
+				<td>STATUS</td>
+				<td>
+					<select  class="form-select" name="attribute[status]" >
+                        <?php foreach ($attribute->getResource()->getStatusOptions() as $key => $value): ?>
+                            <?php $selected = ($key == $attribute->getStatus()) ? 'selected':'' ?>
+                            <option value="<?php echo $key ?>"<?php echo $selected; ?>><?php echo $value ?></option>
+                            <?php endforeach; ?>
+                    </select>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>BAckend-model</td>
+				<td> <input type="text" name="attribute[backend_model]" value="<?php echo $attribute->backend_model ?>">  </td>
+			</tr>
+			<tr>
+				<td>inputType</td>
+				<td><select class="form-select" name="attribute[input_type]" id="inputTypeSelect">
+	            <option value="textarea" <?php echo ($attribute->input_type == 'textarea') ? 'selected':'' ?>>Text Area</option>
+	            <option value="text" <?php echo ($attribute->input_type == 'text') ? 'selected':'' ?>>Text Box</option>
+	            <option value="select" <?php echo ($attribute->input_type == 'select') ? 'selected':'' ?>>Select</option>
+	            <option value="multiselect" <?php echo ($attribute->input_type == 'multiselect') ? 'selected':'' ?>>Multi-Select</option>
+	            <option value="radio" <?php echo ($attribute->input_type == 'radio') ? 'selected':'' ?>>Radio</option>
+	            <option value="checkbox" <?php echo ($attribute->input_type == 'checkbox') ? 'selected':'' ?>>Check-Box</option>
+	        </select> </td>
+			</tr>
+			
+			<tr>
+                 <td>OPTIONS</td>
+				<td> 
+					<?php foreach ($attribute->getOptions() as $key => $value): ?>
+					<input type="text" name="options[options]" value="<?php echo $value ?>">.</br>
+					<?php endforeach; ?> 
+				</td>
+			</tr>
+		</table>
+
+	</form>
+	</div>
+
+
+
+	
