@@ -1,10 +1,10 @@
 <?php
 // echo "<pre>";
-$attribute = $this->attribute;
+$attribute = $this->getRow();
 // print_r($attribute); die();
 $url = new Model_Core_Url();
-$options = $this->options;
-// print_r($this);  die();
+$options = $attribute->getOptions();
+// print_r($options);  die();
 ?>
 
 
@@ -83,14 +83,7 @@ $options = $this->options;
 	        </select> </td>
 			</tr>
 			
-			<tr>
-                 <td>OPTIONS</td>
-				<td> 
-					<?php foreach ($attribute->getOptions() as $key => $value): ?>
-					<input type="text" name="options[options]" value="<?php echo $value ?>">.</br>
-					<?php endforeach; ?> 
-				</td>
-			</tr>
+			
 		</table>
 
 	</form>
@@ -98,4 +91,80 @@ $options = $this->options;
 
 
 
-	
+		<!-- ////options -->
+<!-- ========================================================================================================================================================= -->
+<div style="display: none;margin: 10px 5px;" id="inputTypeOptionDiv">
+		<table border="1">
+			<thead>
+			<tr>
+				<th>Option</th>
+				<th><input type="button" name="add" value="ADD" id="addOption"></th>
+			</tr>
+			</thead>
+			<tbody id="inputTypeOptionTable">
+			<tr style="display: none;"> 
+				<td><input type="text" name="option[exist][]"></td>
+				<td><input type="button" name="remove" value="REMOVE" class="removeOption"></td>
+			</tr>
+			</tbody>
+				
+					<?php foreach ($options->getData() as $option) :?>
+					<tr>
+						<td><input type="text" name="option[exist][<?php echo $option->option_id ?>]" value="<?php echo $option->name ?>"></td>
+						<td><input type="button" name="remove" value="REMOVE" class="removeOption"></td>
+					</tr>
+					<?php endforeach; ?>
+				
+		</table>
+	</div>
+</form>
+<table style="display:none">
+	<tbody id="inputTypeOptionDefault">
+		<tr>
+			<td><input type="text" name="option[new][]"></td>
+			<!-- <td><input type="text" name="position[new][]"></td> -->
+			<td><input type="button" name="remove" value="REMOVE" onclick="removeOption(this)" class="removeOption"></td>
+		</tr>
+	</tbody>
+</table>
+
+
+<!-- jquery -->
+
+<!-- ======================================================================================================================================================================= -->
+<script type="text/javascript" src="View/skin/js/jquery.min.js"></script>
+<script type="text/javascript">
+
+	console.log(alert("Welcome To Jquery World!")); 
+
+	$(".removeOptions").click(function(){
+		$(this).parent().parent().remove();});
+
+	$("#addOption").click(function(){
+        $('#inputTypeOptionTable').prepend($('#inputTypeOptionDefault').html());
+    });
+	// console.log(alert(2)); 
+
+
+
+    $('#inputTypeSelect').change(function (){       
+        var inputType = $(this);
+        if(inputType.val() == 'select' || inputType.val() == 'multiselect' || inputType.val() == 'checkbox' || inputType.val() == 'radio'){
+            $('#inputTypeOptionDiv').show();
+        }
+        else{
+            $('#inputTypeOptionDiv').hide();
+
+        }
+    });
+	// console.log(alert(3)); 
+    
+
+    $(document).ready(function (){  
+        $('#inputTypeSelect').trigger('change');
+    });
+	function removeOption(obj) {
+			$(obj).parent().parent().remove();
+		}
+</script>
+
